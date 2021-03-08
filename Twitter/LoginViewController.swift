@@ -10,20 +10,6 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if UserDefaults.standard.bool(forKey: "userLoggedIn") == true{
-            self.performSegue(withIdentifier: "loginToButton", sender: self)
-        }
-    }
-    
-    
     @IBAction func onLoginButton(_ sender: Any) {
         let myUrl = "https://api.twitter.com/oauth/request_token"
         TwitterAPICaller.client?.login(url: myUrl, success: {
@@ -31,11 +17,20 @@ class LoginViewController: UIViewController {
             self.performSegue(withIdentifier: "loginToButton", sender: self)
         }, failure: { (Error) in
 
-            print("Could not login")
+            print("Could not login!")
         
         })
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDefaults.standard.bool(forKey: "userLoggedIn") == true{
+            self.performSegue(withIdentifier: "loginToButton", sender: self)
+        }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
     /*
     // MARK: - Navigation
 
